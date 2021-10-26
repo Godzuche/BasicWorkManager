@@ -37,12 +37,23 @@ class MainActivity : AppCompatActivity() {
             //Java
 //            val workRequest = OneTimeWorkRequest.Builder(SimpleWorker::class.java).build()
 
+            //Java
+//            val data = Data.Builder().putString("WORK_MESSAGE", "Work Completed!")
+
+            //Work Constraint
+            val constraints = Constraints.Builder()
+                .setRequiresCharging(true)
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
+
             val data = workDataOf("WORK_MESSAGE" to "Work Completed!")
 
             //Kotlin
             val workRequest = OneTimeWorkRequestBuilder<SimpleWorker>()
                     //input data to the worker
                 .setInputData(data)
+                    //set constraint
+                .setConstraints(constraints)
                 .build()
             //to repeat tasks periodically
             val periodicWorkRequest = PeriodicWorkRequestBuilder<SimpleWorker>(
